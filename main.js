@@ -10,7 +10,7 @@ var urlDatabase = {
 };
 
 function generateRandomString() {
-  return base62(8);
+  return base62(6);
 }
 
 app.set('view engine', 'ejs');
