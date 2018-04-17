@@ -18,8 +18,12 @@ app.get("/urls", (req, res) => {
   res.render('urls_index', templateVars);
 });
 
-app.get("/hello", (req, res) => {
-  res.end("<html><body>Hello <b>World</b></body></html>\n");
+app.get("/urls/:id", (req, res) => {
+  let templateVars = {
+    shortUrl: req.params.id,
+    urlData: urlDatabase[req.params.id]
+  };
+  res.render("url_show", templateVars);
 });
 
 app.listen(PORT, () => {
