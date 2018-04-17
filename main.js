@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+const bodyParser = require('body-parser');
 var PORT = process.env.PORT || 8080; // default port 8080
 
 var urlDatabase = {
@@ -8,6 +9,8 @@ var urlDatabase = {
 };
 
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", (req, res) => {
   res.end("Hello!");
