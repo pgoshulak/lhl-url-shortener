@@ -6,9 +6,7 @@
 <body>
 <% include ./partials/_header %>
 <ul>
-  <% 
-    var keys = Object.keys(urls);
-    for (key of keys) { %>
+  <% for (key in urls) { %>
       <li><%= key %> :: <%= urls[key] %>
     <% }
   %>
