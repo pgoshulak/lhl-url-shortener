@@ -4,6 +4,13 @@
   <title>TinyApp</title>
 </head>
 <body>
-  URLs go here
+<ul>
+  <% 
+    var keys = Object.keys(urls);
+    for (key of keys) { %>
+      <li><%= key %> :: <%= urls[key] %>
+    <% }
+  %>
+</ul>
 </body>
 </html>
