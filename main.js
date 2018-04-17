@@ -48,7 +48,11 @@ app.post('/urls', (req, res) => {
 
 app.get('/u/:shortUrl', (req, res) => {
   let longUrl = urlDatabase[req.params.shortUrl];
-  res.redirect(longUrl);
+  if (longUrl) {
+    res.redirect(longUrl);
+  } else {
+    res.redirect('/urls');
+  }
 });
 
 app.listen(PORT, () => {
