@@ -15,10 +15,15 @@ label#logout-username {
   padding-right: 20px;
 }
 
-strong.shortUrl {
-  margin-right: 30px;
+span.shortUrl {
+  min-width: 80px;
+  display: block;
 }
 
 ul.list-group {
   margin-top: 10px;
+}
+
+ul.list-inline {
+  display: inline;
 }

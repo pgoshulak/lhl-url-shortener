@@ -11,7 +11,18 @@
     <ul class="list-group">
       <% for (key in urls) { %>
         <li class="list-group-item clearfix">
-          <strong class="shortUrl"><%= key %></strong> <small><%= urls[key].longUrl %></small>
+          
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <span class=shortUrl>
+                <span class="text-muted">/u/</span><strong><%= key %></strong>
+              </span>
+            </li>
+            <li class="list-inline-item"><%= urls[key].longUrl %></li>
+            <li class="list-inline-item"><small class="text-muted">Visited: <%= urls[key].visited %> times</small></li>
+            <li class="list-inline-item"><small class="text-muted">Updated: <%= ta.ago(urls[key].updated) %></small></li>
+          </ul>
+
           <span class="float-right">
             <div class="btn-group" role="group">
               <form action="/urls/<%= key %>">
