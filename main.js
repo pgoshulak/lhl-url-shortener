@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", (req, res) => {
-  res.end("Hello!");
+  res.redirect('urls');
 });
 
 app.get("/urls", (req, res) => {

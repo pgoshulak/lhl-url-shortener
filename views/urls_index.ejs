@@ -5,6 +5,7 @@
 </head>
 <body>
 <% include ./partials/_header %>
+<a href='/urls/new'>Add new URL</a>
 <ul>
   <% for (key in urls) { %>
       <li><a href='/urls/<%= key %>'><%= key %></a> :: <%= urls[key] %>
