@@ -1,7 +1,16 @@
-body {
-  padding: 50px;
-}
 
 input#longUrl {
   width: 300px;
+}
+
+nav {
+  background-color: #DEF
+}
+
+.container {
+  padding-top: 50px;
+}
+
+label#logout-username {
+  padding-right: 20px;
 }

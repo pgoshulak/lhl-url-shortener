@@ -6,10 +6,12 @@
   </head>
   <body>
     <% include partials/_header %>
-    <form action="/urls" method="POST">
-      <label for="longUrl">Enter a URL:</label>
-      <input id="longUrl" type="text" name="longUrl" placeholder="http://">
-      <button class="btn btn-outline-success" type='submit'>Save!</button>
-    </form>
+    <div class="container">
+      <form action="/urls" method="POST">
+        <label for="longUrl">Enter a URL:</label>
+        <input id="longUrl" type="text" name="longUrl" placeholder="http://">
+        <button class="btn btn-outline-success" type='submit'>Save!</button>
+      </form>
+    </div>
   </body>
 </html>

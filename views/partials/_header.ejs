@@ -1,13 +1,16 @@
-<h1>TinyApp</h1>
-<% if (!username) { %>
-  <form method="POST" action="/login">
-    <label for="login-username">Username:</label>
-    <input id="login-username" type="text" name="username">
-    <button class="btn btn-primary" type='submit'>Login</button>
-  </form>
-<% } else { %>
-  <form method="POST" action="/logout">
-    <label for="login-username">Logged in as <%= username %></label>
-    <button class="btn btn-outline-primary" type='submit'>Logout</button>
-  </form>
-<% } %>
+<nav class="navbar navbar-light">
+  <a href="/urls" class="navbar-brand">TinyApp</a>
+
+  <% if (!username) { %>
+    <form class="form-inline" method="POST" action="/login">
+      <input id="login-username" type="text" name="username" placeholder="Username">
+      <button class="btn btn-sm btn-primary" type='submit'>Login</button>
+    </form>
+  <% } else { %>
+    <form class="form-inline" method="POST" action="/logout">
+      <label id="logout-username" for="login-username"><small class="text-muted">Logged in as &nbsp;</small><strong><%= username %></strong></label>
+      <button class="btn btn-sm btn-primary" type='submit'>Logout</button>
+    </form>
+  <% } %>
+
+</nav>

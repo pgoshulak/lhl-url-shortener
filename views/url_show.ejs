@@ -4,19 +4,20 @@
   <title>TinyApp / <%= shortUrl %></title>
   <% include ./partials/_head %>
 </head>
-<% include ./partials/_header %>
 <body>
-<h2><small class="text-muted">tinyapp.com/u/</small><strong><%= shortUrl %></strong></h2>
-urlData = <%= urlData %>
-<form method="POST" action="/urls/<%= shortUrl %>">
-  <label for="longUrl">Update URL:</label>
-  <input id="longUrl" type="text" name='longUrl' value="<%= urlData %>">
-  <button class="btn btn-outline-success" type='submit'>Update</button>
-</form>
+  <% include ./partials/_header %>
+  <div class="container">
+    <h2><small class="text-muted">tinyapp.com/u/</small><strong><%= shortUrl %></strong></h2>
+    <form method="POST" action="/urls/<%= shortUrl %>">
+      <label for="longUrl">Update URL:</label>
+      <input id="longUrl" type="text" name='longUrl' value="<%= urlData %>">
+      <button class="btn btn-outline-success" type='submit'>Update</button>
+    </form>
 
-<form method="POST" action="/urls/<%= key %>/delete">
-  <button class="btn btn-sm btn-outline-danger" type='submit'>Delete</button>
-</form>
-<a href='/urls'>Back to index</a>
+    <form method="POST" action="/urls/<%= key %>/delete">
+      <button class="btn btn-sm btn-outline-danger" type='submit'>Delete</button>
+    </form>
+    <a href='/urls'>Back to index</a>
+  </div>
 </body>
 </html>
