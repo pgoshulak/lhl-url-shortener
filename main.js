@@ -3,6 +3,7 @@ var app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const base62 = require('base62-random');
+const ta = require('time-ago')
 var PORT = process.env.PORT || 8080; // default port 8080
 
 var urlDatabase = {
@@ -58,7 +59,8 @@ app.get("/urls/:id", (req, res) => {
   let templateVars = {
     username: req.cookies['username'],
     shortUrl: req.params.id,
-    urlData: urlDatabase[req.params.id]
+    urlData: urlDatabase[req.params.id],
+    ta: ta
   };
   res.render("url_show", templateVars);
 });

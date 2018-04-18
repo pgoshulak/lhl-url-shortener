@@ -8,9 +8,13 @@
   <% include ./partials/_header %>
   <div class="container">
     <h2><small class="text-muted">tinyapp.com/u/</small><strong><%= shortUrl %></strong></h2>
-    <p>Visited: <%= urlData.visited %> times</p>
-    <p>Created: <%= urlData.created %></p>
-    <p>Updated: <%= urlData.updated %></p>
+    
+    <ul class="list-unstyled">
+      <li>Visited: <%= urlData.visited %> times</li>
+      <li>Created: <%= ta.ago(urlData.created) %></li>
+      <li>Updated: <%= ta.ago(urlData.updated) %></li>
+    </ul>
+
     <form method="POST" action="/urls/<%= shortUrl %>">
       <label for="longUrl">Update URL:</label>
       <input id="longUrl" type="text" name='longUrl' value="<%= urlData.longUrl %>">
