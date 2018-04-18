@@ -6,8 +6,16 @@ const base62 = require('base62-random');
 var PORT = process.env.PORT || 8080; // default port 8080
 
 var urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  "b2xVn2": {
+    longUrl: "http://www.lighthouselabs.ca",
+    visited: 10,
+    created: new Date('2018 April 18 12:34:56')
+  },
+  "9sm5xK": {
+    longUrl: "http://www.google.com",
+    visited: 6,
+    created: new Date('2018 April 17 08:09:10')
+  }
 };
 
 function generateRandomString() {
