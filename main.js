@@ -55,6 +55,14 @@ app.get('/u/:shortUrl', (req, res) => {
   }
 });
 
+app.post('/urls/:id/delete', (req, res) => {
+  let id = req.params.id
+  if (urlDatabase.hasOwnProperty(id)) {
+    delete urlDatabase[id];
+  }
+  res.redirect('/urls')
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
