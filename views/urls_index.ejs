@@ -8,6 +8,10 @@
 <ul>
   <% for (key in urls) { %>
       <li><%= key %> :: <%= urls[key] %>
+      <form method="POST" action="/urls/<%= key %>/delete">
+        <input type='submit' value='Delete'>
+      </form>
+      </li>
     <% }
   %>
 </ul>
