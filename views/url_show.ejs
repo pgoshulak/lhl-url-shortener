@@ -10,7 +10,7 @@
     <h2><small class="text-muted">tinyapp.com/u/</small><strong><%= shortUrl %></strong></h2>
     <form method="POST" action="/urls/<%= shortUrl %>">
       <label for="longUrl">Update URL:</label>
-      <input id="longUrl" type="text" name='longUrl' value="<%= urlData %>">
+      <input id="longUrl" type="text" name='longUrl' value="<%= urlData.longUrl %>">
       <button class="btn btn-outline-success" type='submit'>Update</button>
     </form>
 
