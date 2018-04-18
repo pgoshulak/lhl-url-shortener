@@ -6,7 +6,13 @@
 <% include ./partials/_header %>
 <body>
 <%= shortUrl %> = <%= urlData %>
-<form method="POST" action="/urls/<%= key %>/delete">
+
+<form method="POST" action="/urls/<%= shortUrl %>">
+  <input type="text" name='longUrl' value="<%= urlData %>">
+  <input type='submit' value='Update'>
+</form>
+
+<form method="POST" action="/urls/<%= shortUrl %>/delete">
   <input type='submit' value='Delete'>
 </form>
 <a href='/urls'>Back to index</a>

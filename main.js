@@ -21,15 +21,18 @@ app.get("/", (req, res) => {
   res.redirect('urls');
 });
 
+// URL index
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render('urls_index', templateVars);
 });
 
+// Page to add a new URL
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
 
+// View the URL info
 app.get("/urls/:id", (req, res) => {
   let templateVars = {
     shortUrl: req.params.id,
@@ -38,6 +41,7 @@ app.get("/urls/:id", (req, res) => {
   res.render("url_show", templateVars);
 });
 
+// Add new URL
 app.post('/urls', (req, res) => {
   let shortUrl = generateRandomString();
   let longUrl = req.body.longURL
@@ -46,6 +50,7 @@ app.post('/urls', (req, res) => {
   res.redirect('/urls/' + shortUrl);
 });
 
+// Redirect to long URL
 app.get('/u/:shortUrl', (req, res) => {
   let longUrl = urlDatabase[req.params.shortUrl];
   if (longUrl) {
@@ -55,6 +60,15 @@ app.get('/u/:shortUrl', (req, res) => {
   }
 });
 
+// Update the URL entry
+app.post('/urls/:id', (req, res) => {
+  let shortUrl = req.params.id;
+  let longUrl = req.body.longUrl;
+  urlDatabase[shortUrl] = longUrl;
+  res.redirect('/urls')
+});
+
+// Delete the short URL entry
 app.post('/urls/:id/delete', (req, res) => {
   let id = req.params.id
   if (urlDatabase.hasOwnProperty(id)) {
