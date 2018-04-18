@@ -25,18 +25,25 @@ app.get("/", (req, res) => {
 
 // URL index
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = { 
+    username: req.cookies('username'),
+    urls: urlDatabase
+  };
   res.render('urls_index', templateVars);
 });
 
 // Page to add a new URL
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  let templateVars = { 
+    username: req.cookies('username')
+  };
+  res.render("urls_new", templateVars);
 });
 
 // View the URL info
 app.get("/urls/:id", (req, res) => {
   let templateVars = {
+    username: req.cookies('username'),
     shortUrl: req.params.id,
     urlData: urlDatabase[req.params.id]
   };
@@ -81,7 +88,8 @@ app.post('/urls/:id/delete', (req, res) => {
 
 app.post('/login', (req, res) => {
   let username = req.body.username;
-  res.send(username)
+  res.cookie('username', username);
+  res.redirect('/urls')
 });
 
 app.listen(PORT, () => {
