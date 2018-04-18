@@ -7,7 +7,7 @@
 <% include ./partials/_header %>
 <ul>
   <% for (key in urls) { %>
-      <li><%= key %> :: <%= urls[key] %>
+      <li><a href='/urls/<%= key %>'><%= key %></a> :: <%= urls[key] %>
       <form method="POST" action="/urls/<%= key %>/delete">
         <input type='submit' value='Delete'>
       </form>
