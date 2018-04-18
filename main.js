@@ -79,6 +79,11 @@ app.post('/urls/:id/delete', (req, res) => {
   res.redirect('/urls')
 });
 
+app.post('/login', (req, res) => {
+  let username = req.body.username;
+  res.send(username)
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
