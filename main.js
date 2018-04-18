@@ -9,12 +9,14 @@ var urlDatabase = {
   "b2xVn2": {
     longUrl: "http://www.lighthouselabs.ca",
     visited: 10,
-    created: new Date('2018 April 18 12:34:56')
+    created: new Date('2018 April 18 12:34:56'),
+    updated: new Date('2018 April 18 12:34:56')
   },
   "9sm5xK": {
     longUrl: "http://www.google.com",
     visited: 6,
-    created: new Date('2018 April 17 08:09:10')
+    created: new Date('2018 April 17 08:09:10'),
+    updated: new Date('2018 April 17 08:09:10')
   }
 };
 
@@ -66,15 +68,21 @@ app.post('/urls', (req, res) => {
   let shortUrl = generateRandomString();
   let longUrl = req.body.longUrl
 
-  urlDatabase[shortUrl] = longUrl;
+  urlDatabase[shortUrl] = {
+    longUrl: longUrl,
+    visited: 0,
+    created: new Date(),
+    updated: new Date()
+  };
   res.redirect('/urls/' + shortUrl);
 });
 
 // Redirect to long URL
 app.get('/u/:shortUrl', (req, res) => {
-  let longUrl = urlDatabase[req.params.shortUrl];
-  if (longUrl) {
-    res.redirect(longUrl);
+  let urlData = urlDatabase[req.params.shortUrl];
+  if (urlData && urlData.longUrl) {
+    urlData.visited += 1;
+    res.redirect(urlData.longUrl);
   } else {
     res.redirect('/urls');
   }
@@ -83,8 +91,12 @@ app.get('/u/:shortUrl', (req, res) => {
 // Update the URL entry
 app.post('/urls/:id', (req, res) => {
   let shortUrl = req.params.id;
-  let longUrl = req.body.longUrl;
-  urlDatabase[shortUrl] = longUrl;
+  let newLongUrl = req.body.longUrl;
+  let oldUrlData = urlDatabase[shortUrl];
+  urlDatabase[shortUrl] = Object.assign({}, oldUrlData, {
+    longUrl: newLongUrl,
+    updated: new Date()
+  })
   res.redirect('/urls')
 });
 
