@@ -7,8 +7,8 @@
 <body>
 <div class="container">
   <% include ./partials/_header %>
-  <a href='/urls/new'>Add new URL</a>
   <ul class="list-group">
+    <a class="list-group-item list-group-item-action" href='/urls/new'>Add new URL</a>
     <% for (key in urls) { %>
         <li class="list-group-item clearfix">
           <strong><%= key %></strong> <small><%= urls[key] %></small>

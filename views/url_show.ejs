@@ -6,15 +6,16 @@
 </head>
 <% include ./partials/_header %>
 <body>
-<%= shortUrl %> = <%= urlData %>
-
+<h2><small class="text-muted">tinyapp.com/u/</small><strong><%= shortUrl %></strong></h2>
+urlData = <%= urlData %>
 <form method="POST" action="/urls/<%= shortUrl %>">
-  <input type="text" name='longUrl' value="<%= urlData %>">
-  <input type='submit' value='Update'>
+  <label for="longUrl">Update URL:</label>
+  <input id="longUrl" type="text" name='longUrl' value="<%= urlData %>">
+  <button class="btn btn-outline-success" type='submit'>Update</button>
 </form>
 
-<form method="POST" action="/urls/<%= shortUrl %>/delete">
-  <input type='submit' value='Delete'>
+<form method="POST" action="/urls/<%= key %>/delete">
+  <button class="btn btn-sm btn-outline-danger" type='submit'>Delete</button>
 </form>
 <a href='/urls'>Back to index</a>
 </body>
