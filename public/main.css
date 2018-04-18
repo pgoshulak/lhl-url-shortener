@@ -27,3 +27,14 @@ ul.list-group {
 ul.list-inline {
   display: inline;
 }
+
+li.long-url-shortened {
+  /* https://stackoverflow.com/questions/23172893/in-html-css-is-there-anyway-to-have-a-span-cut-off-instead-of-going-on-to-an */
+  width: 50%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* https://stackoverflow.com/questions/19362474/css-overflow-hidden-causing-text-alignment-problems */
+  display:inline-block;
+  vertical-align: middle;
+}
