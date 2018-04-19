@@ -270,7 +270,7 @@ app.post('/login', (req, res) => {
 // Logout and clear username cookie
 app.post('/logout', (req, res) => {
   req.session['user_id'] = null;
-  res.redirect('/urls');
+  res.redirect('/');
   return;
 });
 
