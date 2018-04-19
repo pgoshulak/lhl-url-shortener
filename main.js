@@ -90,13 +90,30 @@ app.get("/urls/new", (req, res) => {
 
 // View the URL info
 app.get("/urls/:id", (req, res) => {
-  let templateVars = {
-    user: getUserLoggedIn(req),
-    shortUrl: req.params.id,
-    urlData: urlDatabase[req.params.id],
-    ta: ta
-  };
-  res.render("url_show", templateVars);
+  let user = getUserLoggedIn(req);
+  let shortUrl = req.params.id;
+  let urlData = urlDatabase[shortUrl]
+
+  // Check if the user is logged in
+  if (!user) {
+    res.status(403).send('Error: You must be logged in to edit a URL');
+    return
+  }
+
+  // Check that the URL belongs to the user
+  if (user.id === urlData.userId) {
+    let templateVars = {
+      user: user,
+      shortUrl: shortUrl,
+      urlData: urlData,
+      ta: ta
+    };
+    res.render("url_show", templateVars);
+    return;
+  } else {
+    res.status(403).send('Error: User not authorized to edit this URL')
+  }
+
 });
 
 // Add new URL
