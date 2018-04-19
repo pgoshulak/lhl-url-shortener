@@ -186,7 +186,7 @@ app.get('/u/:shortUrl', (req, res) => {
     urlData.visited += 1;
     res.redirect(urlData.longUrl);
   } else {
-    res.redirect('/');
+    res.status(400).send(`Error: URL /u/${req.params.shortUrl} does not exist`);
   }
 });
 
