@@ -21,6 +21,19 @@ var urlDatabase = {
   }
 };
 
+const users = { 
+  "userRandomID": {
+    id: "userRandomID", 
+    email: "user@example.com", 
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    id: "user2RandomID", 
+    email: "user2@example.com", 
+    password: "dishwasher-funk"
+  }
+};
+
 function generateRandomString() {
   return base62(6);
 }
@@ -127,13 +140,22 @@ app.post('/logout', (req, res) => {
 
 // Registration page
 app.get('/register', (req, res) => {
-  let templateVars = {username: 'none'};
+  let templateVars = {username: req.cookies['username']};
   res.render('register', templateVars);
 })
 
 // Post new registration
 app.post('/register', (req, res) => {
-  console.log(req.body);
+  // Generate new user ID
+  let user_id = generateRandomString();
+  // Add user to database
+  users[user_id] = {
+    id: user_id,
+    email: req.body.email,
+    password: req.body.password
+  }
+  // Set username cookie
+  res.cookie('username', user_id);
   res.redirect('/urls');
 })
 
