@@ -86,14 +86,20 @@ app.use(cookieSession({
 app.use(express.static('public'))
 
 app.get("/", (req, res) => {
-  res.redirect('urls');
+  // If user not logged in, redirect to login page
+  let user = getUserLoggedIn(req);
+  if (!user) {
+    res.redirect('/login');
+    return;
+  }
+  res.redirect('/urls');
 });
 
 // URL index
 app.get("/urls", (req, res) => {
   let user = getUserLoggedIn(req);
   if (!user) {
-    res.redirect('/login');
+    res.status(403).send('Error: You must be logged in to view URLs');
     return;
   }
 
