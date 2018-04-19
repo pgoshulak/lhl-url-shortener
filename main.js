@@ -161,7 +161,7 @@ app.post('/urls', (req, res) => {
   let user = getUserLoggedIn(req);
   // Ensure user cannot POST without being logged in
   if (!user) {
-    res.redirect('/urls');
+    res.redirect('/');
   }
 
   urlDatabase[shortUrl] = {
@@ -181,7 +181,7 @@ app.get('/u/:shortUrl', (req, res) => {
     urlData.visited += 1;
     res.redirect(urlData.longUrl);
   } else {
-    res.redirect('/urls');
+    res.redirect('/');
   }
 });
 
@@ -200,7 +200,7 @@ app.post('/urls/:id', (req, res) => {
       longUrl: newLongUrl,
       updated: new Date()
     })
-    res.redirect('/urls')
+    res.redirect('/')
   } else {
     res.status(403).send('Error: User not authorized to edit this URL');
   }
@@ -224,7 +224,7 @@ app.post('/urls/:id/delete', (req, res) => {
     if (urlDatabase.hasOwnProperty(shortUrl)) {
       delete urlDatabase[shortUrl];
     }
-    res.redirect('/urls')
+    res.redirect('/')
   } else {
     res.status(403).send('Error: User not authorized to delete this URL')
   }
@@ -304,7 +304,7 @@ app.post('/register', (req, res) => {
   }
   // Set username cookie
   req.session['user_id'] = user_id;
-  res.redirect('/urls');
+  res.redirect('/');
 })
 
 
