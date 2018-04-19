@@ -150,14 +150,23 @@ app.get('/u/:shortUrl', (req, res) => {
 
 // Update the URL entry
 app.post('/urls/:id', (req, res) => {
+  let user = getUserLoggedIn(req);
   let shortUrl = req.params.id;
   let newLongUrl = req.body.longUrl;
   let oldUrlData = urlDatabase[shortUrl];
-  urlDatabase[shortUrl] = Object.assign({}, oldUrlData, {
-    longUrl: newLongUrl,
-    updated: new Date()
-  })
-  res.redirect('/urls')
+
+  if (!user) {
+    res.status(403).send('Error: You must be logged in to edit a URL');
+  }
+  if (user.id === oldUrlData.userId) {
+    urlDatabase[shortUrl] = Object.assign({}, oldUrlData, {
+      longUrl: newLongUrl,
+      updated: new Date()
+    })
+    res.redirect('/urls')
+  } else {
+    res.status(403).send('Error: User not authorized to edit this URL');
+  }
 });
 
 // Delete the short URL entry
