@@ -241,7 +241,7 @@ app.post('/login', (req, res) => {
     // If user exists
     if (user.email === email) {
       // If password correct, log the user in
-      if (user.password === password) {
+      if (bcrypt.compareSync(password, user.hashedPassword)) {
         res.cookie('user_id', user_id);
         res.redirect('/urls');
       } else {
@@ -286,7 +286,7 @@ app.post('/register', (req, res) => {
   users[user_id] = {
     id: user_id,
     email: req.body.email,
-    password: req.body.password
+    password: hashPassword(req.body.password)
   }
   // Set username cookie
   res.cookie('user_id', user_id);
