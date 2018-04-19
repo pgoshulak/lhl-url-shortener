@@ -26,19 +26,19 @@ var urlDatabase = {
 
 const users = { 
   "tester": {
-    id: "tester",
+    userId: "tester",
     email: "W@W",
     // password: "123",
     hashedPassword: '$2b$10$VYG2yK6DEvW30tTSMqajZOmE25PKplg7Jl8It//pKsrT7IS6168wy'
   },
   "userRandomID": {
-    id: "userRandomID", 
+    userId: "userRandomID", 
     email: "user@example.com", 
     // password: "purple-monkey-dinosaur",
     hashedPassword: '$2b$10$GQ2NK2PWqksNp2RLXoPXtOwLuo35DyH6akqq9eKpayHzNh3XfBjwS'
   },
  "user2RandomID": {
-    id: "user2RandomID", 
+    userId: "user2RandomID", 
     email: "user2@example.com", 
     // password: "dishwasher-funk",
     hashedPassword: '$2b$10$vevcaJX65EcSCJNaojZFk.jAHQnt8I7X1zGFG0xiFYBYnbYlbKw2q'
@@ -94,7 +94,7 @@ app.get("/urls", (req, res) => {
 
   let templateVars = { 
     user: user,
-    urls: urlsForUser(user.id),
+    urls: urlsForUser(user.userId),
     ta: ta
   };
   res.render('urls_index', templateVars);
@@ -127,7 +127,7 @@ app.get("/urls/:id", (req, res) => {
   }
 
   // Check that the URL belongs to the user
-  if (user.id === urlData.userId) {
+  if (user.userId === urlData.userId) {
     let templateVars = {
       user: user,
       shortUrl: shortUrl,
@@ -158,7 +158,7 @@ app.post('/urls', (req, res) => {
     visited: 0,
     created: new Date(),
     updated: new Date(),
-    userId: user.id
+    userId: user.userId
   };
   res.redirect('/urls/' + shortUrl);
 });
@@ -184,7 +184,7 @@ app.post('/urls/:id', (req, res) => {
   if (!user) {
     res.status(403).send('Error: You must be logged in to edit a URL');
   }
-  if (user.id === oldUrlData.userId) {
+  if (user.userId === oldUrlData.userId) {
     urlDatabase[shortUrl] = Object.assign({}, oldUrlData, {
       longUrl: newLongUrl,
       updated: new Date()
@@ -208,7 +208,7 @@ app.post('/urls/:id/delete', (req, res) => {
   }
 
   // Check that the URL belongs to the user
-  if (user.id === urlData.userId) {
+  if (user.userId === urlData.userId) {
     // Ensure the URL exists before attempting to delete
     if (urlDatabase.hasOwnProperty(shortUrl)) {
       delete urlDatabase[shortUrl];
