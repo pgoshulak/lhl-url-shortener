@@ -286,7 +286,7 @@ app.post('/register', (req, res) => {
   users[user_id] = {
     id: user_id,
     email: req.body.email,
-    password: hashPassword(req.body.password)
+    hashedPassword: hashPassword(req.body.password)
   }
   // Set username cookie
   res.cookie('user_id', user_id);
