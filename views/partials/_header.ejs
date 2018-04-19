@@ -2,14 +2,14 @@
   <a href="/urls" class="navbar-brand">TinyApp</a>
   
   <a href="/register">Register!</a>
-  <% if (!username) { %>
+  <% if (!user) { %>
     <form class="form-inline" method="POST" action="/login">
       <input id="login-username" type="text" name="username" placeholder="Username">
       <button class="btn btn-sm btn-primary" type='submit'>Login</button>
     </form>
   <% } else { %>
     <form class="form-inline" method="POST" action="/logout">
-      <label id="logout-username" for="login-username"><small class="text-muted">Logged in as &nbsp;</small><strong><%= username %></strong></label>
+      <label id="logout-username" for="login-username"><small class="text-muted">Logged in as &nbsp;</small><strong><%= user.email %></strong></label>
       <button class="btn btn-sm btn-primary" type='submit'>Logout</button>
     </form>
   <% } %>

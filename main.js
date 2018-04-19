@@ -38,6 +38,13 @@ function generateRandomString() {
   return base62(6);
 }
 
+function getUserLoggedIn(req) {
+  if (!req.cookies['user_id']) {
+    return null;
+  }
+  return users[req.cookies['user_id']];
+}
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,7 +60,7 @@ app.get("/", (req, res) => {
 // URL index
 app.get("/urls", (req, res) => {
   let templateVars = { 
-    username: req.cookies['username'],
+    user: getUserLoggedIn(req),
     urls: urlDatabase,
     ta: ta
   };
@@ -63,7 +70,7 @@ app.get("/urls", (req, res) => {
 // Page to add a new URL
 app.get("/urls/new", (req, res) => {
   let templateVars = { 
-    username: req.cookies['username']
+    user: getUserLoggedIn(req)
   };
   res.render("urls_new", templateVars);
 });
@@ -71,7 +78,7 @@ app.get("/urls/new", (req, res) => {
 // View the URL info
 app.get("/urls/:id", (req, res) => {
   let templateVars = {
-    username: req.cookies['username'],
+    user: getUserLoggedIn(req),
     shortUrl: req.params.id,
     urlData: urlDatabase[req.params.id],
     ta: ta
@@ -140,7 +147,7 @@ app.post('/logout', (req, res) => {
 
 // Registration page
 app.get('/register', (req, res) => {
-  let templateVars = {username: req.cookies['username']};
+  let templateVars = {user: getUserLoggedIn(req)};
   res.render('register', templateVars);
 })
 
@@ -167,7 +174,7 @@ app.post('/register', (req, res) => {
     password: req.body.password
   }
   // Set username cookie
-  res.cookie('username', user_id);
+  res.cookie('user_id', user_id);
   res.redirect('/urls');
 })
 
