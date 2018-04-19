@@ -2,14 +2,20 @@
   <a href="/urls" class="navbar-brand">TinyApp</a>
   
   <% if (!user) { %>
-    <a href="/register">Register!</a>
-    <form class="form-inline" method="GET" action="/login">
-      <button class="btn btn-sm btn-primary" type='submit'>Login</button>
-    </form>
+    <span class="float-right">
+      <div class="btn-group" role="group">
+        <form class="form-inline" method="GET" action="/register">
+          <button class="btn btn-sm btn-primary" type='submit'>Register</button>
+        </form>
+        <form class="form-inline" method="GET" action="/login">
+          <button class="btn btn-sm btn-outline-primary" type='submit'>Login</button>
+        </form>
+      </div>
+    </span>
   <% } else { %>
     <form class="form-inline" method="POST" action="/logout">
       <label id="logout-username" for="login-username"><small class="text-muted">Logged in as &nbsp;</small><strong><%= user.email %></strong></label>
-      <button class="btn btn-sm btn-primary" type='submit'>Logout</button>
+      <button class="btn btn-sm btn-outline-primary" type='submit'>Logout</button>
     </form>
   <% } %>
 
