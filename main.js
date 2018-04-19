@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const base62 = require('base62-random');
 const ta = require('time-ago')
+const bcrypt = require('bcrypt');
 var PORT = process.env.PORT || 8080; // default port 8080
 
 var urlDatabase = {
@@ -27,17 +28,20 @@ const users = {
   "tester": {
     id: "tester",
     email: "W@W",
-    password: "123"
+    // password: "123",
+    hashedPassword: '$2b$10$VYG2yK6DEvW30tTSMqajZOmE25PKplg7Jl8It//pKsrT7IS6168wy'
   },
   "userRandomID": {
     id: "userRandomID", 
     email: "user@example.com", 
-    password: "purple-monkey-dinosaur"
+    // password: "purple-monkey-dinosaur",
+    hashedPassword: '$2b$10$GQ2NK2PWqksNp2RLXoPXtOwLuo35DyH6akqq9eKpayHzNh3XfBjwS'
   },
  "user2RandomID": {
     id: "user2RandomID", 
     email: "user2@example.com", 
-    password: "dishwasher-funk"
+    // password: "dishwasher-funk",
+    hashedPassword: '$2b$10$vevcaJX65EcSCJNaojZFk.jAHQnt8I7X1zGFG0xiFYBYnbYlbKw2q'
   }
 };
 
@@ -50,6 +54,10 @@ function getUserLoggedIn(req) {
     return null;
   }
   return users[req.cookies['user_id']];
+}
+
+function hashPassword(password) {
+  return bcrypt.hashSync(password,10);
 }
 
 // Return a list of a specific user's URLs
