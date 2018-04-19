@@ -11,13 +11,15 @@ var urlDatabase = {
     longUrl: "http://www.lighthouselabs.ca",
     visited: 10,
     created: new Date('2018 April 18 12:34:56'),
-    updated: new Date('2018 April 18 12:34:56')
+    updated: new Date('2018 April 18 12:34:56'),
+    userId: "tester"
   },
   "9sm5xK": {
     longUrl: "http://www.google.com",
     visited: 6,
     created: new Date('2018 April 17 08:09:10'),
-    updated: new Date('2018 April 17 08:09:10')
+    updated: new Date('2018 April 17 08:09:10'),
+    userId: "userRandomID"
   }
 };
 
@@ -102,11 +104,18 @@ app.post('/urls', (req, res) => {
   let shortUrl = generateRandomString();
   let longUrl = req.body.longUrl
 
+  let user = getUserLoggedIn(req);
+  // Ensure user cannot POST without being logged in
+  if (!user) {
+    res.redirect('/urls');
+  }
+
   urlDatabase[shortUrl] = {
     longUrl: longUrl,
     visited: 0,
     created: new Date(),
-    updated: new Date()
+    updated: new Date(),
+    userId: user.user_id
   };
   res.redirect('/urls/' + shortUrl);
 });
