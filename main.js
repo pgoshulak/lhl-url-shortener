@@ -128,14 +128,19 @@ app.get("/urls/new", (req, res) => {
 // View the URL info
 app.get("/urls/:id", (req, res) => {
   let user = getUserLoggedIn(req);
-  let shortUrl = req.params.id;
-  let urlData = urlDatabase[shortUrl]
-
   // Check if the user is logged in
   if (!user) {
     res.status(403).send('Error: You must be logged in to edit a URL');
     return
   }
+
+  let shortUrl = req.params.id;
+  if (!urlDatabase.hasOwnProperty(shortUrl)) {
+    res.status(400).send(`Error: URL /${shortUrl} does not exist`);
+    return;
+  }
+  let urlData = urlDatabase[shortUrl]
+
 
   // Check that the URL belongs to the user
   if (user.userId === urlData.userId) {
