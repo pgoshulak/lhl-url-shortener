@@ -1,11 +1,14 @@
 var express = require("express");
 var app = express();
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const base62 = require('base62-random');
-const ta = require('time-ago')
+const ta = require('time-ago');
 const bcrypt = require('bcrypt');
+
 var PORT = process.env.PORT || 8080; // default port 8080
+const COOKIE_SESSION_SECRET = 'this is a secret please dont share'
 
 var urlDatabase = {
   "b2xVn2": {
@@ -50,10 +53,10 @@ function generateRandomString() {
 }
 
 function getUserLoggedIn(req) {
-  if (!req.cookies['user_id']) {
+  if (!req.session['user_id']) {
     return null;
   }
-  return users[req.cookies['user_id']];
+  return users[req.session['user_id']];
 }
 
 function hashPassword(password) {
@@ -76,7 +79,11 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(cookieParser());
+// app.use(cookieParser());
+app.use(cookieSession({
+  name: 'session',
+  secret: COOKIE_SESSION_SECRET
+}));
 
 app.use(express.static('public'))
 
@@ -87,9 +94,9 @@ app.get("/", (req, res) => {
 // URL index
 app.get("/urls", (req, res) => {
   let user = getUserLoggedIn(req);
-
   if (!user) {
     res.redirect('/login');
+    return;
   }
 
   let templateVars = { 
@@ -222,7 +229,7 @@ app.post('/urls/:id/delete', (req, res) => {
 // Login page
 app.get('/login', (req, res) => {
   // Check if user is already logged in
-  if (req.cookies['user_id']) {
+  if (req.session['user_id']) {
     res.redirect('/urls');
     return;
   }
@@ -242,7 +249,7 @@ app.post('/login', (req, res) => {
     if (user.email === email) {
       // If password correct, log the user in
       if (bcrypt.compareSync(password, user.hashedPassword)) {
-        res.cookie('user_id', user_id);
+        res.session['user_id'] = user_id;
         res.redirect('/urls');
       } else {
         // Password is incorrect
@@ -256,7 +263,7 @@ app.post('/login', (req, res) => {
 
 // Logout and clear username cookie
 app.post('/logout', (req, res) => {
-  res.clearCookie('user_id');
+  res.session['user_id'] = null;
   res.redirect('/urls');
 });
 
@@ -289,7 +296,7 @@ app.post('/register', (req, res) => {
     hashedPassword: hashPassword(req.body.password)
   }
   // Set username cookie
-  res.cookie('user_id', user_id);
+  res.session['user_id'] = user_id;
   res.redirect('/urls');
 })
 
