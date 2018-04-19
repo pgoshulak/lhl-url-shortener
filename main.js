@@ -132,11 +132,38 @@ app.post('/urls/:id/delete', (req, res) => {
   res.redirect('/urls')
 });
 
+// Login page
+app.get('/login', (req, res) => {
+  // Check if user is already logged in
+  if (req.cookies['user_id']) {
+    res.redirect('/urls');
+    return;
+  }
+  res.render('login')
+})
+
 // Login and assign cookie as username
 app.post('/login', (req, res) => {
-  let username = req.body.username;
-  res.cookie('username', username);
-  res.redirect('/urls');
+  let email = req.body.email;
+  let password = req.body.password;
+
+  // Check if user exists in database
+  for (user_id in users) {
+    let user = users[user_id];
+    // If user exists
+    if (user.email === email) {
+      // If password correct, log the user in
+      if (user.password === password) {
+        res.cookie('user_id', user_id);
+        res.redirect('/urls');
+      } else {
+        // Password is incorrect
+        res.status(403).send('Error: Incorrect password');
+      }
+    }
+  }
+  // The user email does not exist in the database
+  res.status(403).send('Error: User does not exist')
 });
 
 // Logout and clear username cookie
