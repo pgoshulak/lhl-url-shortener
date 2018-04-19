@@ -125,6 +125,19 @@ app.post('/logout', (req, res) => {
   res.redirect('/urls');
 });
 
+// Registration page
+app.get('/register', (req, res) => {
+  let templateVars = {username: 'none'};
+  res.render('register', templateVars);
+})
+
+// Post new registration
+app.post('/register', (req, res) => {
+  console.log(req.body);
+  res.redirect('/urls');
+})
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
