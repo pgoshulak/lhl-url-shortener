@@ -146,6 +146,18 @@ app.get('/register', (req, res) => {
 
 // Post new registration
 app.post('/register', (req, res) => {
+  // Error checking email and password
+  if (!req.body.email || !req.body.password) {
+    res.redirect(400, '/register');
+    return;
+  }
+  // Check that email is unique
+  for (id in users) {
+    if (users[id].email === req.body.email) {
+      res.redirect(400, '/register');
+      return;
+    }
+  }
   // Generate new user ID
   let user_id = generateRandomString();
   // Add user to database
