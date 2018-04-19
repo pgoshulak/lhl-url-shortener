@@ -158,7 +158,7 @@ app.post('/urls', (req, res) => {
     visited: 0,
     created: new Date(),
     updated: new Date(),
-    userId: user.user_id
+    userId: user.id
   };
   res.redirect('/urls/' + shortUrl);
 });
