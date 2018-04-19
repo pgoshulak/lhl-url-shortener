@@ -281,7 +281,11 @@ app.post('/logout', (req, res) => {
 
 // Registration page
 app.get('/register', (req, res) => {
-  let templateVars = {user: getUserLoggedIn(req)};
+  let user = getUserLoggedIn(req);
+  if (user) {
+    res.redirect('/urls');
+  }
+  let templateVars = {user: user};
   res.render('register', templateVars);
 })
 
