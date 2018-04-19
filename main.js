@@ -69,8 +69,14 @@ app.get("/urls", (req, res) => {
 
 // Page to add a new URL
 app.get("/urls/new", (req, res) => {
-  let templateVars = { 
-    user: getUserLoggedIn(req)
+  let user = getUserLoggedIn(req);
+  // User must be logged in to make a new url
+  if (!user) {
+    res.redirect('/login');
+    return;
+  }
+  let templateVars = {
+    user: user
   };
   res.render("urls_new", templateVars);
 });
