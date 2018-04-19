@@ -1,7 +1,6 @@
 var express = require("express");
 var app = express();
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const base62 = require('base62-random');
 const ta = require('time-ago');
@@ -79,7 +78,6 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-// app.use(cookieParser());
 app.use(cookieSession({
   name: 'session',
   secret: COOKIE_SESSION_SECRET
@@ -249,11 +247,13 @@ app.post('/login', (req, res) => {
     if (user.email === email) {
       // If password correct, log the user in
       if (bcrypt.compareSync(password, user.hashedPassword)) {
-        res.session['user_id'] = user_id;
+        req.session['user_id'] = user_id;
         res.redirect('/urls');
+        return;
       } else {
         // Password is incorrect
         res.status(403).send('Error: Incorrect password');
+        return;
       }
     }
   }
@@ -263,8 +263,9 @@ app.post('/login', (req, res) => {
 
 // Logout and clear username cookie
 app.post('/logout', (req, res) => {
-  res.session['user_id'] = null;
+  req.session['user_id'] = null;
   res.redirect('/urls');
+  return;
 });
 
 // Registration page
@@ -296,7 +297,7 @@ app.post('/register', (req, res) => {
     hashedPassword: hashPassword(req.body.password)
   }
   // Set username cookie
-  res.session['user_id'] = user_id;
+  req.session['user_id'] = user_id;
   res.redirect('/urls');
 })
 
