@@ -22,6 +22,11 @@ var urlDatabase = {
 };
 
 const users = { 
+  "tester": {
+    id: "tester",
+    email: "W@W",
+    password: "123"
+  },
   "userRandomID": {
     id: "userRandomID", 
     email: "user@example.com", 
