@@ -1,8 +1,8 @@
 <nav class="navbar navbar-light">
   <a href="/urls" class="navbar-brand">TinyApp</a>
   
-  <a href="/register">Register!</a>
   <% if (!user) { %>
+    <a href="/register">Register!</a>
     <form class="form-inline" method="GET" action="/login">
       <button class="btn btn-sm btn-primary" type='submit'>Login</button>
     </form>

@@ -139,7 +139,8 @@ app.get('/login', (req, res) => {
     res.redirect('/urls');
     return;
   }
-  res.render('login')
+  let templateVars = {user: getUserLoggedIn(req)};
+  res.render('login', templateVars)
 })
 
 // Login and assign cookie as username
