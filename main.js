@@ -52,6 +52,18 @@ function getUserLoggedIn(req) {
   return users[req.cookies['user_id']];
 }
 
+// Return a list of a specific user's URLs
+function urlsForUser(userId) {
+  let filteredUrls = {};
+  for (shortUrl in urlDatabase) {
+    let urlData = urlDatabase[shortUrl];
+    if (urlData.userId === userId) {
+      filteredUrls[shortUrl] = urlData;
+    }
+  }
+  return filteredUrls;
+}
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -66,9 +78,15 @@ app.get("/", (req, res) => {
 
 // URL index
 app.get("/urls", (req, res) => {
+  let user = getUserLoggedIn(req);
+
+  if (!user) {
+    res.redirect('/login');
+  }
+
   let templateVars = { 
-    user: getUserLoggedIn(req),
-    urls: urlDatabase,
+    user: user,
+    urls: urlsForUser(user.id),
     ta: ta
   };
   res.render('urls_index', templateVars);
