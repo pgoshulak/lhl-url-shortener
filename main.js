@@ -162,11 +162,26 @@ app.post('/urls/:id', (req, res) => {
 
 // Delete the short URL entry
 app.post('/urls/:id/delete', (req, res) => {
-  let id = req.params.id
-  if (urlDatabase.hasOwnProperty(id)) {
-    delete urlDatabase[id];
+  let user = getUserLoggedIn(req);
+  let shortUrl = req.params.id;
+  let urlData = urlDatabase[shortUrl]
+
+  // Check if the user is logged in
+  if (!user) {
+    res.status(403).send('Error: You must be logged in to delete a URL');
+    return
   }
-  res.redirect('/urls')
+
+  // Check that the URL belongs to the user
+  if (user.id === urlData.userId) {
+    // Ensure the URL exists before attempting to delete
+    if (urlDatabase.hasOwnProperty(shortUrl)) {
+      delete urlDatabase[shortUrl];
+    }
+    res.redirect('/urls')
+  } else {
+    res.status(403).send('Error: User not authorized to delete this URL')
+  }
 });
 
 // Login page
