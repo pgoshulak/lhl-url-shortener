@@ -7,6 +7,8 @@
 <body>
   <% include ./partials/_header %>
   <div class="container">
+    <a href='/urls'>&laquo; Back to index</a>
+
     <h2><small class="text-muted">tinyapp.com/u/</small><strong><%= shortUrl %></strong></h2>
     
     <ul class="list-unstyled">
@@ -25,7 +27,6 @@
     <form method="POST" action="/urls/<%= shortUrl %>/delete">
       <button class="btn btn-sm btn-outline-danger" type='submit'>Delete</button>
     </form>
-    <a href='/urls'>Back to index</a>
     
     <br><br>
     <h4>Visitor log</h4>
