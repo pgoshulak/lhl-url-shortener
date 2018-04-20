@@ -16,8 +16,9 @@ var urlDatabase = {
     created: new Date('2018 April 18 12:34:56'),
     updated: new Date('2018 April 18 12:34:56'),
     userId: "tester",
-    uniqueVisitors: [],
-    allVisits: []
+    uniqueVisitors: ['IWtZEC', 'kj23AS'],
+    allVisits: [{ visitor_id: 'kj23AS', timestamp: new Date('2018-04-19T16:41:42.482Z') },
+    { visitor_id: 'IWtZEC', timestamp: new Date('2018-04-20T17:41:44.715Z') }]
   },
   "9sm5xK": {
     longUrl: "http://www.google.com",
@@ -25,8 +26,12 @@ var urlDatabase = {
     created: new Date('2018 April 17 08:09:10'),
     updated: new Date('2018 April 17 08:09:10'),
     userId: "userRandomID",
-    uniqueVisitors: [],
-    allVisits: []
+    uniqueVisitors: ['IWtZEC', 'oHrouq'],
+    allVisits: [{ visitor_id: 'IWtZEC', timestamp: new Date('2018-04-20T16:41:35.394Z') },
+    { visitor_id: 'IWtZEC', timestamp: new Date('2018-04-20T16:41:42.482Z') },
+    { visitor_id: 'IWtZEC', timestamp: new Date('2018-04-20T16:41:44.715Z') },
+    { visitor_id: 'IWtZEC', timestamp: new Date('2018-04-20T16:42:08.759Z') },
+    { visitor_id: 'oHrouq', timestamp: new Date('2018-04-20T16:42:32.475Z') }]
   }
 };
 
