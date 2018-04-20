@@ -18,9 +18,18 @@
                 <span class="text-muted">/u/</span><strong><%= key %></strong>
               </span>
             </li>
-            <li class="list-inline-item long-url-shortened"><%= urls[key].longUrl %></li>
-            <li class="list-inline-item"><small class="text-muted">Visited: <%= urls[key].visited %> times</small></li>
-            <li class="list-inline-item"><small class="text-muted">Updated: <%= ta.ago(urls[key].updated) %></small></li>
+            <li class="list-inline-item long-url-shortened">
+              <%= urls[key].longUrl %>
+            </li>
+            <li class="list-inline-item">
+              <small class="text-muted">Visited: <%= urls[key].allVisits.length %> times</small>
+            </li>
+            <li class="list-inline-item">
+              <small class="text-muted">Unique visitors: <%= urls[key].uniqueVisitors.length %></small>
+            </li>
+            <li class="list-inline-item">
+              <small class="text-muted">Updated: <%= ta.ago(urls[key].updated) %></small>
+            </li>
           </ul>
 
           <span class="float-right">
