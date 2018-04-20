@@ -15,14 +15,18 @@ var urlDatabase = {
     visited: 10,
     created: new Date('2018 April 18 12:34:56'),
     updated: new Date('2018 April 18 12:34:56'),
-    userId: "tester"
+    userId: "tester",
+    uniqueVisitors: [],
+    allVisits: []
   },
   "9sm5xK": {
     longUrl: "http://www.google.com",
     visited: 6,
     created: new Date('2018 April 17 08:09:10'),
     updated: new Date('2018 April 17 08:09:10'),
-    userId: "userRandomID"
+    userId: "userRandomID",
+    uniqueVisitors: [],
+    allVisits: []
   }
 };
 
