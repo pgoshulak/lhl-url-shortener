@@ -188,8 +188,29 @@ app.post('/urls', (req, res) => {
 // Redirect to long URL
 app.get('/u/:shortUrl', (req, res) => {
   let urlData = urlDatabase[req.params.shortUrl];
+  // Check that the URL exists
   if (urlData && urlData.longUrl) {
-    urlData.visited += 1;
+
+    // Get or generate unique visitor_id cookie
+    let visitor_id;
+    if (req.session.visitor_id) {
+      visitor_id = req.session.visitor_id;
+    } else {
+      visitor_id = generateRandomString();
+      req.session.visitor_id = visitor_id;
+    }
+    
+    // Add visit to db
+    urlData.allVisits.push({
+      visitor_id: visitor_id,
+      timestamp: new Date()
+    });
+
+    // Add to visitor_id to unique visitors list (if first time visiting)
+    if (!urlData.uniqueVisitors.includes(visitor_id)) {
+      urlData.uniqueVisitors.push(visitor_id);
+    }
+
     res.redirect(urlData.longUrl);
   } else {
     res.status(400).send(`Error: URL /u/${req.params.shortUrl} does not exist`);
